@@ -15,12 +15,12 @@ class Scraper(object):
                 
                 res = self.client.get(self.config["url"], proxies={ "https": "socks5://"+line ,\
                         "http": "socks5://"+line, "https": "socks4://"+line, "http":\
-                        "socks4://"+line, "http": line, "https": line }, timeout=1)
+                        "socks4://"+line, "http": line, "https": line }, timeout=self.config["timeout"])
                 print(res)
 
-                if (self.config["regex"]).match(res.text):
+                if self.config["regex"].match(res.text):
                     print("[*] " + line + " is a valid proxy! Saving. ")
-                    (self.config["counter"]).addFound()
-                    (self.config["saver"]).save(line)
+                    self.config["counter"].addFound()
+                    self.config["saver"].save(line)
             except:
                 continue
