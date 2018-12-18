@@ -1,7 +1,7 @@
 class Env:
     def __init__(self):
         
-        self.URL = "https://ifconfig.io/"
+        self.URL = "https://captive.apple.com/"
         self.regex = '<HTML><HEAD><TITLE>Success</TITLE></HEAD><BODY>Success</BODY></HTML>$'
 
         self.timeout = 8
