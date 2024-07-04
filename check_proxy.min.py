@@ -35,6 +35,7 @@ banner = f"""{Green}
 """
 
 UNTAMPERED_PROXY_REGEX = r"<HTML><HEAD><TITLE>Success</TITLE></HEAD><BODY>Success</BODY></HTML>$"
+INTERROGATOR_URL = "https://captive.apple.com/"
 
 def print_help():
     print("Usage: check_proxy.py <proxy-list> <output-list> <number-of-threads>")
@@ -74,7 +75,6 @@ class Counter:
          
 
 def check_proxies(proxy_list, regex, output_file, counter):
-    
     for line in proxy_list:
         try:
             counter.add_progress()
@@ -90,7 +90,7 @@ def check_proxies(proxy_list, regex, output_file, counter):
                 "http": line,
                 "https": line
             }
-            response = session.get("https://captive.apple.com/", proxies=proxies, timeout=8)
+            response = session.get(INTERROGATOR_URL, proxies=proxies, timeout=8)
             
             if regex.match(response.text):
                 print(f"[{Green}+{Color_Off}] {Yellow}{line}{Color_Off} is a {Green}valid{Color_Off} proxy! Saving.")
