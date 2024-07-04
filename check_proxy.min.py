@@ -37,10 +37,6 @@ banner = f"""{Green}
 UNTAMPERED_PROXY_REGEX = r"<HTML><HEAD><TITLE>Success</TITLE></HEAD><BODY>Success</BODY></HTML>$"
 INTERROGATOR_URL = "https://captive.apple.com/"
 
-def print_help():
-    print("Usage: check_proxy.py <proxy-list> <output-list> <number-of-threads>")
-    sys.exit(1)
-
 def read_proxies(file_path):
     with open(file_path, "r") as file:
         return [line.strip() for line in file]
