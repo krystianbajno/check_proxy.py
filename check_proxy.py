@@ -33,12 +33,13 @@ def main():
     counter = create_counter()
     set_total(counter, len(proxies))
 
+    socks_checker = ProxyChecker(
+        on_proxy_found=lambda proxy: on_proxy_found(proxy, args.output_list, counter), 
+        on_check=lambda proxy: on_check(counter, proxy)
+    )
+
     threads = []
     for sublist in divided_proxies:
-        socks_checker = ProxyChecker(
-            on_proxy_found=lambda proxy: on_proxy_found(proxy, args.output_list, counter), 
-            on_check=lambda proxy: on_check(counter, proxy)
-        )
         thread = threading.Thread(target=check_proxies, args=(sublist, socks_checker.check))
         thread.daemon = True
         threads.append(thread)
