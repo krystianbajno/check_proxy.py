@@ -4,21 +4,11 @@ import threading
 from time import sleep
 
 from proxy_checker.banner import display_banner
-from proxy_checker.file_ops import read_proxies, write_proxy
+from proxy_checker.events import on_progress, on_proxy_found
+from proxy_checker.file_ops import read_proxies
 from proxy_checker.proxy_checker import ProxyChecker
-from proxy_checker.counter import add_progress, create_counter, set_total, add_working, print_progress
+from proxy_checker.counter import create_counter, set_total
 from proxy_checker.utils import partition
-from proxy_checker.colors import Colors
-
-def on_proxy_found(proxy, output_file, counter):
-    print(f"[{Colors.GREEN}+{Colors.RESET}] {Colors.YELLOW}{proxy}{Colors.RESET} is a {Colors.GREEN}valid{Colors.RESET} proxy! Saving.")
-    add_working(counter)
-    write_proxy(output_file, proxy)
-
-def on_progress(counter, proxy):
-    add_progress(counter)
-    print_progress(counter, proxy)
-    pass
 
 def main():
     parser = argparse.ArgumentParser(description='Check proxies from a list.')
