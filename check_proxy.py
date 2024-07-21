@@ -4,11 +4,11 @@ import threading
 from time import sleep
 
 from proxy_checker.banner import display_banner
-from proxy_checker.events import on_progress, on_proxy_found
+from proxy_checker.events import on_check, on_proxy_found
 from proxy_checker.file_ops import read_proxies
 from proxy_checker.proxy_checker import ProxyChecker
 from proxy_checker.counter import create_counter, set_total
-from proxy_checker.utils import partition
+from proxy_checker.utils import check_proxies, partition
 
 def main():
     parser = argparse.ArgumentParser(description='Check proxies from a list.')
@@ -35,12 +35,11 @@ def main():
 
     threads = []
     for sublist in divided_proxies:
-        checker = ProxyChecker(
-            sublist,
+        socks_checker = ProxyChecker(
             on_proxy_found=lambda proxy: on_proxy_found(proxy, args.output_list, counter), 
-            on_progress=lambda proxy: on_progress(counter, proxy)
+            on_check=lambda proxy: on_check(counter, proxy)
         )
-        thread = threading.Thread(target=checker.run)
+        thread = threading.Thread(target=check_proxies, args=(sublist, socks_checker.check))
         thread.daemon = True
         threads.append(thread)
         thread.start()

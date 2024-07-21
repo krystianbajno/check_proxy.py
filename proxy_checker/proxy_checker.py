@@ -5,32 +5,27 @@ class ProxyChecker:
     UNTAMPERED_PROXY_REGEX = re.compile(r"<HTML><HEAD><TITLE>Success</TITLE></HEAD><BODY>Success</BODY></HTML>$")
     INTERROGATOR_URL = "https://captive.apple.com/"
 
-    def __init__(self, proxy_list, on_proxy_found, on_progress):
-        self.proxy_list = proxy_list
+    def __init__(self, on_proxy_found, on_check):
         self.on_proxy_found = on_proxy_found
-        self.on_progress = on_progress
+        self.on_check = on_check
 
-    def check_proxy(self, line):
+    def check(self, proxy):
         try:
-            self.on_progress(line)
+            self.on_check(proxy)
             session = requests.Session()
 
             proxies = {
-                "http": f"socks5://{line}",
-                "https": f"socks5://{line}",
-                "http": f"socks4://{line}",
-                "https": f"socks4://{line}",
-                "http": line,
-                "https": line
+                "http": f"socks5://{proxy}",
+                "https": f"socks5://{proxy}",
+                "http": f"socks4://{proxy}",
+                "https": f"socks4://{proxy}",
+                "http": proxy,
+                "https": proxy
             }
             response = session.get(self.INTERROGATOR_URL, proxies=proxies, timeout=8)
 
             if self.UNTAMPERED_PROXY_REGEX.match(response.text):
-                self.on_proxy_found(line)
+                self.on_proxy_found(proxy)
 
         except requests.RequestException:
             pass
-
-    def run(self):
-        for line in self.proxy_list:
-            self.check_proxy(line)
