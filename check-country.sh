@@ -1,5 +1,5 @@
 #!/bin/bash
-# Usage: ./checkCountry.sh <proxylist> optional: <searched country name>
+# Usage: ./check-country.sh <proxylist> optional: <searched country name>
 
 if [[ "$#" -lt 1 ]] || [[ "$#" -gt 2 ]];then
 echo "Usage: ./checkCountry.sh <proxylist> optional: <searched country name>"
