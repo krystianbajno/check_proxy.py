@@ -45,13 +45,14 @@ def main():
         threads.append(thread)
         thread.start()
 
-    try:
-        while any(thread.is_alive() for thread in threads):
-            sleep(1)
-    except KeyboardInterrupt:
-        print("[*] Stopping")
-        sys.exit(0)
-
+    while any(thread.is_alive() for thread in threads):
+        sleep(1)
+ 
 if __name__ == "__main__":
     display_banner()
-    main()
+    
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("[!] CTRL + C, stopping")
+        sys.exit(0)
