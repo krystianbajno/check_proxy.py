@@ -35,7 +35,11 @@ def main():
 
     threads = []
     for sublist in divided_proxies:
-        checker = ProxyChecker(sublist, on_proxy_found=lambda proxy: on_proxy_found(proxy, args.output_list, counter), on_progress=lambda proxy: on_progress(counter, proxy))
+        checker = ProxyChecker(
+            sublist,
+            on_proxy_found=lambda proxy: on_proxy_found(proxy, args.output_list, counter), 
+            on_progress=lambda proxy: on_progress(counter, proxy)
+        )
         thread = threading.Thread(target=checker.run)
         thread.daemon = True
         threads.append(thread)
