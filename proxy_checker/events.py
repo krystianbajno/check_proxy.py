@@ -7,6 +7,6 @@ def on_proxy_found(proxy, output_file, counter):
     add_working(counter)
     write_proxy(output_file, proxy)
 
-def on_check(counter, proxy):
+def on_check(proxy, counter):
     add_progress(counter)
-    print_progress(proxy, counter)
+    print_progress(counter, proxy)
