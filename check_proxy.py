@@ -34,7 +34,7 @@ def main():
     set_total(counter, len(proxies))
 
     socks_checker = ProxyChecker(
-        on_proxy_found=lambda proxy: on_proxy_found(proxy, args.output_list, counter), 
+        on_proxy_found=lambda proxy: on_proxy_found(proxy, counter, args.output_list), 
         on_check=lambda proxy: on_check(proxy, counter)
     )
 
