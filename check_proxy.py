@@ -35,7 +35,7 @@ def main():
 
     socks_checker = ProxyChecker(
         on_proxy_found=lambda proxy: on_proxy_found(proxy, args.output_list, counter), 
-        on_check=lambda proxy: on_check(counter, proxy)
+        on_check=lambda proxy: on_check(proxy, counter)
     )
 
     threads = []

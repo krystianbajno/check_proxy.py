@@ -9,4 +9,4 @@ def on_proxy_found(proxy, output_file, counter):
 
 def on_check(counter, proxy):
     add_progress(counter)
-    print_progress(counter, proxy)
+    print_progress(proxy, counter)
