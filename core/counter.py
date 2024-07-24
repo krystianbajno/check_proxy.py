@@ -1,5 +1,5 @@
 from threading import Lock
-from .colors import Colors
+from core.colors import Colors
 
 def create_counter():
     return {

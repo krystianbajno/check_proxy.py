@@ -1,4 +1,4 @@
-from .colors import Colors
+from core.colors import Colors
 
 def display_banner():
     banner = f"""{Colors.GREEN}

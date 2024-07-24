@@ -1,7 +1,7 @@
 import re
 import requests
 
-class ProxyChecker:
+class SocksProxyChecker:
     UNTAMPERED_PROXY_REGEX = re.compile(r"<HTML><HEAD><TITLE>Success</TITLE></HEAD><BODY>Success</BODY></HTML>$")
     INTERROGATOR_URL = "https://captive.apple.com/"
 

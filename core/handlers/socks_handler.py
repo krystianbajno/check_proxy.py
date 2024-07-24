@@ -1,0 +1,25 @@
+import threading
+from time import sleep
+from core.events import on_check, on_proxy_found
+from core.proxy_checker.socks_proxy_checker import SocksProxyChecker
+from core.utils import check_proxies, partition
+
+def handle(counter, https_proxies, output_list, on_proxy_found=on_proxy_found, on_check=on_check, num_threads=100):
+    divided_proxies = partition(https_proxies, num_threads)
+
+    socks_checker = SocksProxyChecker(
+        on_proxy_found=lambda proxy: on_proxy_found(proxy, counter, output_list), 
+        on_check=lambda proxy: on_check(proxy, counter)
+    )
+
+    threads = []
+    for sublist in divided_proxies:
+        thread = threading.Thread(target=check_proxies, args=(sublist, socks_checker.check))
+        thread.daemon = True
+        threads.append(thread)
+        thread.start()
+
+    while any(thread.is_alive() for thread in threads):
+        sleep(1)
+        
+    return output_list
