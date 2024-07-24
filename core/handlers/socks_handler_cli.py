@@ -22,10 +22,14 @@ def on_cli_proxy_check_decorator(counter):
         return decorated_func
 
 def handle(counter, https_proxies, output_file, num_threads):
+    output_list = []
+    
     handle_socks(
         https_proxies, 
-        [],
+        output_list,
         on_proxy_found=on_cli_proxy_found_decorator(output_file, counter), 
         on_check=on_cli_proxy_check_decorator(counter),
         num_threads=num_threads
     )
+    
+    return output_list
