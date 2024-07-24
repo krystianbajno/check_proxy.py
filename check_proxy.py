@@ -9,26 +9,24 @@ from core.file_ops import read_proxies
 from core.handlers.socks_handler_cli import handle as handle_socks_cli
 from core.handlers.vmess_handler_cli import handle as handle_vmess_cli
 from core.vmess.vmess_converter import VrayConverter
+from core.vmess.vmess_install_service import VmessInstallService
 
 def main():
-    hidden_parser = argparse.ArgumentParser(description='Hidden parser for internal use.', add_help=False)
-    hidden_parser.add_argument('--convert-vmess', help="Convert vmess to json", action="store", default=False, required=False)
+    parser = argparse.ArgumentParser()
 
-    hidden_args = hidden_parser.parse_args()
-    
-    if hidden_args.convert_vmess:
-        converter = VrayConverter()
-        converter.save_local_config_from_string(hidden_args.convert_vmess)
-
-        return
-
-    parser = argparse.ArgumentParser(description='Check proxies from a list.')
-    parser.add_argument('input_file', help='Path to the input proxy list file')
-    parser.add_argument('output_file', help='Path to the output file')
+    parser.add_argument('input_file', help='Path to the input proxy list file OR Vmess url')
+    parser.add_argument('output_file', nargs="?", help='Path to the output file')
     parser.add_argument('num_threads', nargs='?', type=int, help='Number of threads', default=100)
     parser.add_argument('--socks-only', help='Check only socks', action="store_true", default=False)
 
-    args = parser.parse_known_args()
+    args = parser.parse_args()
+
+    if "vmess://" in args.input_file:
+        converter = VrayConverter()
+        converter.save_local_config_from_string(args.input_file)
+
+        return
+    # args = parser.parse_known_args()
 
     if args.input_file == args.output_file:
         print("Input and output files must be different.")
@@ -44,6 +42,14 @@ def main():
     print(f"Parsed VMESS: {get_len_of_proxy_class(classified_proxies, ClassifierEnum.VMESS)}")
     input(f"[*] Press enter to start!\n")
     
+    installer = VmessInstallService()
+    
+    if get_len_of_proxy_class(classified_proxies, ClassifierEnum.VMESS) > 0 and not installer.check_exists():
+        choice = input("Do you want to install utility tools for V2Ray VMESS proxy?")
+        if "y" in choice.lower():
+            installer.install()
+            
+
     counter = create_counter()
     set_total(counter, get_len_classified_proxies_total(classified_proxies))
     
