@@ -4,12 +4,12 @@ from core.events import on_check, on_proxy_found
 from core.proxy_checker.socks_proxy_checker import SocksProxyChecker
 from core.utils import check_proxies, partition
 
-def handle(counter, https_proxies, output_list, on_proxy_found=on_proxy_found, on_check=on_check, num_threads=100):
+def handle(https_proxies, output_list, on_proxy_found=on_proxy_found, on_check=on_check, num_threads=100):
     divided_proxies = partition(https_proxies, num_threads)
 
     socks_checker = SocksProxyChecker(
-        on_proxy_found=lambda proxy: on_proxy_found(proxy, counter, output_list), 
-        on_check=lambda proxy: on_check(proxy, counter)
+        on_proxy_found=lambda proxy: on_proxy_found(proxy, output_list), 
+        on_check=lambda proxy: on_check(proxy)
     )
 
     threads = []
