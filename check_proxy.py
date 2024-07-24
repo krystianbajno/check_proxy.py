@@ -8,19 +8,32 @@ from core.counter import create_counter, set_total
 from core.file_ops import read_proxies
 from core.handlers.socks_handler_cli import handle as handle_socks_cli
 from core.handlers.vmess_handler_cli import handle as handle_vmess_cli
+from core.vmess.vmess_converter import VrayConverter
 
 def main():
+    hidden_parser = argparse.ArgumentParser(description='Hidden parser for internal use.', add_help=False)
+    hidden_parser.add_argument('--convert-vmess', help="Convert vmess to json", action="store", default=False, required=False)
+
+    hidden_args = hidden_parser.parse_args()
+    
+    if hidden_args.convert_vmess:
+        converter = VrayConverter()
+        converter.save_local_config_from_string(hidden_args.convert_vmess)
+
+        return
+
     parser = argparse.ArgumentParser(description='Check proxies from a list.')
     parser.add_argument('input_file', help='Path to the input proxy list file')
     parser.add_argument('output_file', help='Path to the output file')
     parser.add_argument('num_threads', nargs='?', type=int, help='Number of threads', default=100)
     parser.add_argument('--socks-only', help='Check only socks', action="store_true", default=False)
 
-    args = parser.parse_args()
+    args = parser.parse_known_args()
+
     if args.input_file == args.output_file:
         print("Input and output files must be different.")
         sys.exit(1)
-    
+
     proxies = read_proxies(args.input_file)
     classified_proxies = classify_proxies_by_type(proxies)
     

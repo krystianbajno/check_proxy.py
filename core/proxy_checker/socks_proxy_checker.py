@@ -1,14 +1,8 @@
-import re
 import requests
 
-class SocksProxyChecker:
-    UNTAMPERED_PROXY_REGEX = re.compile(r"<HTML><HEAD><TITLE>Success</TITLE></HEAD><BODY>Success</BODY></HTML>$")
-    INTERROGATOR_URL = "https://captive.apple.com/"
+from core.proxy_checker.proxy_checker import ProxyChecker
 
-    def __init__(self, on_proxy_found, on_check):
-        self.on_proxy_found = on_proxy_found
-        self.on_check = on_check
-
+class SocksProxyChecker(ProxyChecker):
     def check(self, proxy):
         try:
             self.on_check(proxy)
@@ -22,9 +16,10 @@ class SocksProxyChecker:
                 "http": proxy,
                 "https": proxy
             }
+
             response = session.get(self.INTERROGATOR_URL, proxies=proxies, timeout=8)
 
-            if self.UNTAMPERED_PROXY_REGEX.match(response.text):
+            if self.is_response_not_tampered(response):
                 self.on_proxy_found(proxy)
 
         except requests.RequestException:
