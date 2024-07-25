@@ -1,4 +1,9 @@
 __pycache__
 proxies
 out
+<<<<<<< HEAD
+core/vmess/tools
+vmessproxy
+=======
 out_details.csv
+>>>>>>> upstream/master

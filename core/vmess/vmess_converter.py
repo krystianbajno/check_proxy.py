@@ -1,5 +1,6 @@
 import json
 import base64
+import os
 
 from core.colors import Colors
 
@@ -111,12 +112,13 @@ class VrayConverter:
         
         return config
 
-    def save_local_config_from_string(self, vmess_string):
-        path = "./v2ray/config.json"
+    def save_local_config_from_string(self, vmess_string, config_path="./core/vmess/tools/config.json"):
         config = self.convert_vmess_to_json(vmess_string)
 
-        with open(path, "w") as config_handle:
+        os.makedirs(os.path.dirname(config_path), exist_ok=True)
+
+        with open(config_path, "w") as config_handle:
             config_handle.write(
                 json.dumps(config)
             )
-        print(f"[{Colors.GREEN}+{Colors.RESET}] Config saved to {path}")
+        print(f"[{Colors.GREEN}+{Colors.RESET}] Config saved to {config_path}")
