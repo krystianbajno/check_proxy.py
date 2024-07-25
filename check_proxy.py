@@ -1,6 +1,7 @@
 import argparse
 import sys
 
+from config import configuration
 from core.banner import display_banner
 from core.classifiers.classifier_enum import ClassifierEnum
 from core.classifiers.proxy_classifier import classify_proxies_by_type, get_len_classified_proxies_total, get_len_of_proxy_class, get_proxies_by_class
@@ -9,6 +10,8 @@ from core.file_ops import read_proxies
 from core.handlers.socks_handler_cli import handle as handle_socks_cli
 from core.handlers.vmess_handler_cli import handle as handle_vmess_cli
 from core.reports.entities.csv_proxy_report import CSVProxyReport
+from core.vmess.vmess_install_service import VmessInstallService
+
 
 def main():
     parser = argparse.ArgumentParser(description='Check proxies from a list.')
@@ -33,13 +36,12 @@ def main():
     print(f"Parsed VMESS: {get_len_of_proxy_class(classified_proxies, ClassifierEnum.VMESS)}")
     input(f"[*] Press enter to start!\n")
     
-    installer = VmessInstallService()
+    installer = VmessInstallService(configuration()["vmess_dist_dir"])
     
     if get_len_of_proxy_class(classified_proxies, ClassifierEnum.VMESS) > 0 and not installer.check_exists():
         choice = input("Do you want to install utility tools for V2Ray VMESS proxy?")
         if "y" in choice.lower():
             installer.install()
-            
 
     counter = create_counter()
     csv_report = CSVProxyReport.create_report()

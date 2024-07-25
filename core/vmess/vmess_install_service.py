@@ -3,9 +3,9 @@ import requests
 import sys
 import zipfile
 
-class VmessInstallService:
 
-    def __init__(self, directory="./tools/"):
+class VmessInstallService:
+    def __init__(self, directory):
         self.directory = directory
 
     def check_exists(self):

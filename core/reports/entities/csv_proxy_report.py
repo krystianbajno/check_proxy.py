@@ -11,9 +11,8 @@ class CSVProxyReport:
 
     def get_report_view(self):
         csv = ""
-        for header in self.headers:
-            csv = csv + header
-
+        csv = csv + ",".join(self.headers)
+        
         csv = csv + "\n"
 
         for line in self.lines:
