@@ -38,7 +38,7 @@ ip:port
 ### To obtain proxies, run the following command in your terminal:
 This command retrieves proxies from the providers listed in the `proxy-providers.txt` file.
 ```
-bash get-proxy.sh
+bash get_proxy.sh
 ```
 
 ### To validate the proxies, use the following command:
