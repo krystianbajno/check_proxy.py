@@ -12,6 +12,7 @@ def display_banner():
                         |______|_|                  |___/  |_|    |___/ 
 {Colors.RESET}
                                                        Krystian Bajno 2018
-                                                                   {Colors.CYAN}v2 2024{Colors.RESET}
-    """
+Contributors:                                                      {Colors.CYAN}{Colors.BOLD}v2 2024{Colors.RESET}
+{Colors.VIOLET}{Colors.BOLD}@Artideusz{Colors.RESET} {Colors.CYAN}(https://github.com/Artideusz){Colors.RESET}
+   """
     print(banner)
