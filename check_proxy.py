@@ -8,13 +8,11 @@ from core.counter import create_counter, set_total
 from core.file_ops import read_proxies
 from core.handlers.socks_handler_cli import handle as handle_socks_cli
 from core.handlers.vmess_handler_cli import handle as handle_vmess_cli
-from core.vmess.vmess_converter import VrayConverter
-from core.vmess.vmess_install_service import VmessInstallService
+from core.reports.entities.csv_proxy_report import CSVProxyReport
 
 def main():
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument('input_file', help='Path to the input proxy list file OR Vmess url')
+    parser = argparse.ArgumentParser(description='Check proxies from a list.')
+    parser.add_argument('input_file', help='Path to the input proxy list file')
     parser.add_argument('output_file', help='Path to the output file')
     parser.add_argument('num_threads', nargs='?', type=int, help='Number of threads', default=100)
     parser.add_argument('--socks-only', help='Check only socks', action="store_true", default=False)
@@ -44,10 +42,13 @@ def main():
             
 
     counter = create_counter()
+    csv_report = CSVProxyReport.create_report()
+
     set_total(counter, get_len_classified_proxies_total(classified_proxies))
     
     if not args.socks_only:
         handle_vmess_cli(
+            csv_report,
             counter,
             get_proxies_by_class(
                 classified_proxies, 
@@ -57,7 +58,8 @@ def main():
         )
 
     handle_socks_cli(
-        counter, 
+        csv_report,
+        counter,
         get_proxies_by_class(
             classified_proxies, 
             ClassifierEnum.SOCKS
