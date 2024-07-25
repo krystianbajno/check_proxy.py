@@ -14,4 +14,4 @@ def handle(vmess_proxies, output_list, on_proxy_found=on_proxy_found, on_check=o
         on_check=lambda proxy: on_check(proxy)
     )
     
-    return check_proxies(vmess_proxies, vmess_checker.check)
+    return check_proxies(proxies, vmess_checker.check)

@@ -7,8 +7,8 @@ from core.classifiers.classifier_enum import ClassifierEnum
 from core.classifiers.proxy_classifier import classify_proxies_by_type, get_len_classified_proxies_total, get_len_of_proxy_class, get_proxies_by_class
 from core.counter import create_counter, set_total
 from core.file_ops import read_proxies
-from core.handlers.socks_handler_cli import handle as handle_socks_cli
-from core.handlers.vmess_handler_cli import handle as handle_vmess_cli
+from core.handlers.cli.hoc.socks_handler_cli_hoc import handle as handle_socks_cli
+from core.handlers.cli.hoc.vmess_handler_cli_hoc import handle as handle_vmess_cli
 from core.reports.entities.csv_proxy_report import CSVProxyReport
 from core.vmess.vmess_install_service import VmessInstallService
 

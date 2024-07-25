@@ -1,5 +1,5 @@
 from core.entities.proxy import Proxy
-from core.handlers.event_listeners_cli import on_cli_proxy_check_decorator, on_cli_proxy_found_decorator
+from core.handlers.cli.event_listeners_cli import on_cli_proxy_check_decorator, on_cli_proxy_found_decorator
 from core.handlers.vmess_handler import handle as handle_vmess
 from core.reports.entities.csv_proxy_report import CSVProxyReport
 
