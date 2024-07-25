@@ -1,8 +1,4 @@
 # check_proxy.py
-
-<img src="https://raw.githubusercontent.com/krystianbajno/krystianbajno/main/img/check-proxy/check-proxy.gif"/>
-
-
 A fast Cyber Threat Intelligence tool for creating a list of working proxies. Use it to obtain, validate, and check proxy origins. Easily create IoC proxy lists. Supports vmess, HTTPS, and SOCKS.
 
 ```
@@ -22,6 +18,8 @@ Contributors:                                                      v2 2024
 usage: check_proxy.py [-h] [--socks-only] input_file output_file [num_threads]
 check_proxy.py: error: the following arguments are required: input_file, output_file
 ```
+
+<img src="https://raw.githubusercontent.com/krystianbajno/krystianbajno/main/img/check-proxy/check-proxy.gif"/>
 
 ### Validate proxies in seconds.
 The `check_proxy.py` script supports the following proxy formats in the input file:
