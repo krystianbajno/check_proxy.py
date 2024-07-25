@@ -8,7 +8,7 @@ from core.reports.plain_connection_report import append_connection_plain_report
 from core.reports.plain_details_report import append_details_csv_plain_report, generate_details_csv_plain_report_data
 
 def on_cli_proxy_found_decorator(output_file, counter, csv_report: CSVProxyReport):
-    def decorated_func(proxy, output_list):
+    def decorated_func(proxy, output_list, is_proxy_safe):
         print(f"[{Colors.GREEN}+{Colors.RESET}] {Colors.YELLOW}{proxy}{Colors.RESET} is a {Colors.GREEN}valid{Colors.RESET} proxy! Saving.")
 
         # Update counter
@@ -18,7 +18,7 @@ def on_cli_proxy_found_decorator(output_file, counter, csv_report: CSVProxyRepor
         append_proxy_report(output_file, append_connection_plain_report(proxy))
         
         # Get proxy details via various APIs
-        proxy_details = get_proxy_details(proxy)
+        proxy_details = get_proxy_details(proxy, is_proxy_safe)
         print(proxy_details)
 
         append_proxy_report(

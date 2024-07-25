@@ -5,6 +5,7 @@ class ProxyDetails:
         self.port = None 
         self.type = None
         self.country = None
+        self.is_safe = None
         self.isp = None
         self.city = None
         self.region_name = None
@@ -18,6 +19,9 @@ class ProxyDetails:
     def set_public_ip(self, public_ip: str):
         self.public_ip = public_ip
         
+    def set_is_safe(self, is_proxy_safe):
+        self.is_proxy_safe = is_proxy_safe
+
     def set_port(self, port: str):
         self.port = port
         
@@ -51,6 +55,7 @@ class ProxyDetails:
 🛜  Public ip: {self.public_ip}
 🛜  Port: {self.port}
 🛜  Type: {self.type}
+🛜  Safe: {str(self.is_safe)}
 🌎  Country: {self.country}
 🌎  ISP: {self.isp}
 🌎  City: {self.city}

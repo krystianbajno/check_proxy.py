@@ -43,8 +43,11 @@ class SocksProxyChecker(ProxyChecker):
                     continue
 
        
+            is_proxy_safe = False
             if response is not None and self.is_response_not_tampered(response):
-                self.on_proxy_found(current_version + "://" + proxy)
+                is_proxy_safe = True
+
+            self.on_proxy_found(current_version + "://" + proxy, is_proxy_safe)
 
         except requests.RequestException:
             pass

@@ -4,6 +4,7 @@ def create_proxy_details(
         connection_string,
         public_ip,
         port,
+        is_proxy_safe,
         proxy_type,
         country,
         isp,
@@ -20,6 +21,7 @@ def create_proxy_details(
     proxy_details.set_port(port)
     proxy_details.set_public_ip(public_ip)
     proxy_details.set_type(proxy_type)
+    proxy_details.set_is_safe(is_proxy_safe)
 
     proxy_details.set_country(country)
     proxy_details.set_isp(isp)

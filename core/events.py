@@ -1,4 +1,4 @@
-def on_proxy_found(proxy, working_arr):
+def on_proxy_found(proxy, working_arr, is_proxy_safe):
     working_arr.append(proxy)
     pass
 

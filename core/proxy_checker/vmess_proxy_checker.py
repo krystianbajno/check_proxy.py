@@ -32,8 +32,11 @@ class VmessProxyChecker(ProxyChecker):
 
             response = session.get(self.INTERROGATOR_URL, timeout=8, proxies={ "http": "socks5://127.0.0.1:1080" })
 
-            if self.is_response_not_tampered(response):
-                self.on_proxy_found(proxy)
+            is_proxy_safe = False
+            if response is not None and self.is_response_not_tampered(response):
+                is_proxy_safe = True
+
+            self.on_proxy_found(proxy, is_proxy_safe)
 
             process.terminate()
 

@@ -5,7 +5,7 @@ from core.proxy_details.proxy_details_factory import create_proxy_details
 from geoloc.geoloc_ipapi_client import get_ip_details
 
 
-def get_proxy_details(proxy):
+def get_proxy_details(proxy, is_proxy_safe):
     proxy_class = classify_proxy(proxy)
     connection_string = proxy
 
@@ -39,7 +39,8 @@ def get_proxy_details(proxy):
     return create_proxy_details(
         connection_string,
         public_ip, 
-        port, 
+        port,
+        is_proxy_safe,
         proxy_type, 
         country, 
         isp, 
