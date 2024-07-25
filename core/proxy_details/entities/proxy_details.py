@@ -20,7 +20,7 @@ class ProxyDetails:
         self.public_ip = public_ip
         
     def set_is_safe(self, is_proxy_safe):
-        self.is_proxy_safe = is_proxy_safe
+        self.is_safe = is_proxy_safe
 
     def set_port(self, port: str):
         self.port = port

@@ -2,6 +2,7 @@ import requests
 import subprocess
 import os
 
+from core.entities.proxy import Proxy
 from core.proxy_checker.proxy_checker import ProxyChecker
 from core.vmess.vmess_converter import VrayConverter
 
@@ -14,7 +15,7 @@ class VmessProxyChecker(ProxyChecker):
             on_check
         )
 
-    def check(self, proxy):
+    def check(self, proxy: Proxy):
         try:
             self.on_check(proxy)
             session = requests.Session()
@@ -25,21 +26,21 @@ class VmessProxyChecker(ProxyChecker):
             
             # Create a new config with the current
             converter = VrayConverter()
-            converter.save_local_config_from_string(converter.convert_vmess_to_json(proxy))
+            converter.save_local_config_from_string(converter.convert_vmess_to_json(proxy.connection_string))
 
             process = subprocess.Popen(self.v2ray_exec, shell=True)
             print("Process has been executed")
 
             response = session.get(self.INTERROGATOR_URL, timeout=8, proxies={ "http": "socks5://127.0.0.1:1080" })
 
-            is_proxy_safe = False
-            if response is not None and self.is_response_not_tampered(response):
-                is_proxy_safe = True
-
-            self.on_proxy_found(proxy, is_proxy_safe)
+            if response is not None:
+                if self.is_response_not_tampered(response):
+                    proxy.set_is_safe(True)
+                    
+                self.on_proxy_found(proxy)
 
             process.terminate()
 
         except requests.RequestException as e:
-            print(f"Error: {e}")
+            print(f"VMESS Error: {e}")
             pass

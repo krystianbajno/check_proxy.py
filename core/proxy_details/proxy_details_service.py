@@ -1,13 +1,14 @@
 import re
 from core.classifiers.classifier_enum import ClassifierEnum
-from core.classifiers.proxy_classifier import classify_proxy
+from core.entities.proxy import Proxy
 from core.proxy_details.proxy_details_factory import create_proxy_details
 from geoloc.geoloc_ipapi_client import get_ip_details
 
 
-def get_proxy_details(proxy, is_proxy_safe):
-    proxy_class = classify_proxy(proxy)
-    connection_string = proxy
+def generate_proxy_details(proxy: Proxy):
+    proxy_class = proxy.type.name
+    connection_string = proxy.connection_string
+    is_proxy_safe = proxy.is_safe
 
     public_ip = None
     port = None
@@ -19,8 +20,8 @@ def get_proxy_details(proxy, is_proxy_safe):
         ip_pattern = r'\b(?:\d{1,3}\.){3}\d{1,3}\b'
         port_pattern = r':(\d+)'
 
-        ip_match = re.search(ip_pattern, proxy)    
-        port_match = re.search(port_pattern, proxy)
+        ip_match = re.search(ip_pattern, proxy.connection_string)    
+        port_match = re.search(port_pattern, proxy.connection_string)
 
         public_ip = ip_match.group() if ip_match else None
         port = port_match.group(1) if port_match else None

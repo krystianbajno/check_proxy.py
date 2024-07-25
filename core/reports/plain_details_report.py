@@ -2,7 +2,7 @@ from core.proxy_details.entities.proxy_details import ProxyDetails
 from core.reports.entities.csv_proxy_report import CSVProxyReport
 
 def generate_details_csv_plain_report_data(proxy_details: ProxyDetails) -> None:
-    headers=["connection string", "public ip", "port", "type", "country", "isp", "city", "region_name", "organization", "lat", "lon"]
+    headers=["connection string", "public ip", "port", "type", "safe", "country", "isp", "city", "region_name", "organization", "lat", "lon"]
 
     return {
         "headers": headers,
@@ -11,6 +11,7 @@ def generate_details_csv_plain_report_data(proxy_details: ProxyDetails) -> None:
             proxy_details.public_ip,
             proxy_details.port,
             proxy_details.type,
+            str(proxy_details.is_safe),
             proxy_details.country,
             proxy_details.isp,
             proxy_details.city,

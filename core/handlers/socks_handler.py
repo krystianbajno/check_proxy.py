@@ -1,11 +1,15 @@
 import threading
 from time import sleep
+from core.classifiers.classifier_enum import ClassifierEnum
+from core.entities.proxy import Proxy
 from core.events import on_check, on_proxy_found
 from core.proxy_checker.socks_proxy_checker import SocksProxyChecker
 from core.utils import check_proxies, partition
 
 def handle(https_proxies, output_list, on_proxy_found=on_proxy_found, on_check=on_check, num_threads=100):
-    divided_proxies = partition(https_proxies, num_threads)
+    proxies = list([Proxy(proxy, ClassifierEnum.SOCKS) for proxy in https_proxies])
+    
+    divided_proxies = partition(proxies, num_threads)
 
     socks_checker = SocksProxyChecker(
         on_proxy_found=lambda proxy: on_proxy_found(proxy, output_list), 

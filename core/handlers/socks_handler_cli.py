@@ -1,8 +1,9 @@
+from core.entities.proxy import Proxy
 from core.handlers.event_listeners_cli import on_cli_proxy_check_decorator, on_cli_proxy_found_decorator
 from core.handlers.socks_handler import handle as handle_socks
 from core.reports.entities.csv_proxy_report import CSVProxyReport
 
-def handle(csv_report: CSVProxyReport, counter, https_proxies, output_file, num_threads):
+def handle(csv_report: CSVProxyReport, counter, https_proxies: list[Proxy], output_file, num_threads: int):
     output_list = []
     
     handle_socks(

@@ -10,7 +10,6 @@ def classify_proxies_by_type(proxies):
         
     return classified_proxies
 
-
 def classify_proxy(proxy):
     for entry in classifier_config:
         if entry["classifier"](proxy):
