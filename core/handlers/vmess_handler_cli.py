@@ -1,5 +1,4 @@
-from core.file_ops import write_proxies
-from core.handlers.cli_decorator import on_cli_proxy_check_decorator, on_cli_proxy_found_decorator
+from core.handlers.event_listeners_cli import on_cli_proxy_check_decorator, on_cli_proxy_found_decorator
 from core.handlers.vmess_handler import handle as handle_vmess
 
 def handle(counter, vmess_proxies, output_file):
