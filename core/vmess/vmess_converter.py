@@ -76,7 +76,7 @@ TPL["CLIENT"] = """
     ]
   }
 }
-"""t
+"""
 
 
 class VrayConverter:
