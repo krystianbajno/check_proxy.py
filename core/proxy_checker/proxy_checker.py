@@ -14,7 +14,6 @@ class ProxyChecker:
         tampered = True
 
         for pattern in self.UNTAMPERED_PROXY_PATTERN:
-            print(response.text)
             if pattern == response.text:
                 tampered = False
 

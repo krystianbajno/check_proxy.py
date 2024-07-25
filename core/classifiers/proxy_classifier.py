@@ -10,6 +10,12 @@ def classify_proxies_by_type(proxies):
         
     return classified_proxies
 
+
+def classify_proxy(proxy):
+    for entry in classifier_config:
+        if entry["classifier"](proxy):
+            return entry["class"]
+
 def get_len_classified_proxies_total(classified_proxies):
     return functools.reduce(lambda acc, key: acc + len(classified_proxies[key]), classified_proxies.keys(), 0)
 
