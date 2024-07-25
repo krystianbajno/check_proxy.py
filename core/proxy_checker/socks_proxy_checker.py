@@ -3,26 +3,31 @@ import requests
 from core.proxy_checker.proxy_checker import ProxyChecker
 
 class SocksProxyChecker(ProxyChecker):
-    def check(self, proxy):
+    def check(self, proxy_url):
         try:
-            self.on_check(proxy)
+            self.on_check(proxy_url)
             session = requests.Session()
 
+            if "://" in proxy_url:
+                proxy = proxy_url.split("://")[1]
+            else:
+                proxy = proxy_url
+            
             proxies = [
                 {
-                "version": "socks5",
-                "http": f"socks5://{proxy}",
-                "https": f"socks5://{proxy}",
+                    "version": "socks5",
+                    "http": f"socks5://{proxy}",
+                    "https": f"socks5://{proxy}"
                 },
                 {
-                "version": "socks4",
-                "http": f"socks4://{proxy}",
-                "https": f"socks4://{proxy}",
+                    "version": "socks4",
+                    "http": f"socks4://{proxy}",
+                    "https": f"socks4://{proxy}"
                 },
                 {
-                "version": "https",
-                "http": proxy,
-                "https": proxy
+                    "version": "https",
+                    "http": proxy,
+                    "https": proxy
                 }
             ]
 
