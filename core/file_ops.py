@@ -7,6 +7,10 @@ def write_proxies(file_path, lines):
         for line in lines:
             file.write(line + "\n")
         
-def write_proxy(file_path, line):
+def append_proxy_report(file_path, line):
     with open(file_path, "a") as file:
         file.write(line + "\n")
+
+def write_proxy_report(file_path, data):
+    with open(file_path, "w") as file:
+        file.write(data)
