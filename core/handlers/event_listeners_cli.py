@@ -4,9 +4,10 @@ from core.entities.proxy import Proxy
 from core.events import on_check, on_proxy_found
 from core.file_ops import append_proxy_report, write_proxy_report
 from core.proxy_details.proxy_details_service import generate_proxy_details
+from core.reports.connection_string_report import append_connection_string_report
+from core.reports.details_csv_report import append_details_csv_report, generate_details_csv_report_data
+from core.reports.details_report import append_details_report
 from core.reports.entities.csv_proxy_report import CSVProxyReport
-from core.reports.plain_connection_report import append_connection_plain_report
-from core.reports.plain_details_report import append_details_csv_plain_report, generate_details_csv_plain_report_data
 
 def on_cli_proxy_found_decorator(output_file, counter, csv_report: CSVProxyReport):
     def decorated_func(proxy: Proxy, output_list):
@@ -16,21 +17,22 @@ def on_cli_proxy_found_decorator(output_file, counter, csv_report: CSVProxyRepor
         ctr_add_working(counter)
 
         # Append proxy to working proxy list outfile
-        append_proxy_report(output_file, append_connection_plain_report(proxy))
+        append_proxy_report(output_file, append_connection_string_report(proxy))
         
         # Get proxy details via various APIs
         proxy.set_details(generate_proxy_details(proxy))
         
-        print(proxy.details)
+        details_report = append_details_report(proxy)
+        print(details_report)
 
         append_proxy_report(
-             output_file + "_details",
-             str(proxy.details)
+            output_file + "_details",
+            details_report
         )
 
         # Update CSV detailed report
-        report_data = generate_details_csv_plain_report_data(proxy.details)
-        append_details_csv_plain_report(csv_report, report_data)
+        report_data = generate_details_csv_report_data(proxy)
+        append_details_csv_report(csv_report, report_data)
 
         # Save the CSV detailed report
         write_proxy_report(
