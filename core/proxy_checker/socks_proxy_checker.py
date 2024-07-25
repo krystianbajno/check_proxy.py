@@ -18,9 +18,12 @@ class SocksProxyChecker(ProxyChecker):
             }
 
             response = session.get(self.INTERROGATOR_URL, proxies=proxies, timeout=8)
-
+       
             if self.is_response_not_tampered(response):
                 self.on_proxy_found(proxy)
 
         except requests.RequestException:
             pass
+
+        except Exception as e:
+            print(e)

@@ -21,6 +21,11 @@ def on_cli_proxy_found_decorator(output_file, counter, csv_report: CSVProxyRepor
         proxy_details = get_proxy_details(proxy)
         print(proxy_details)
 
+        append_proxy_report(
+             output_file + "_details",
+             str(proxy_details)
+        )
+
         # Update CSV detailed report
         report_data = generate_details_csv_plain_report_data(proxy_details)
         append_details_csv_plain_report(csv_report, report_data)

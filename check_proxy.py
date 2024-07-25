@@ -78,3 +78,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("[!] CTRL + C, stopping")
         sys.exit(0)
+
+    except Exception as e:
+        print(e)

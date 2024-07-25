@@ -4,3 +4,4 @@ out
 dist/vmess/tools
 vmessproxy
 out_details.csv
+out_details
