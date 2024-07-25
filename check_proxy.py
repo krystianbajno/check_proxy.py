@@ -15,18 +15,11 @@ def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('input_file', help='Path to the input proxy list file OR Vmess url')
-    parser.add_argument('output_file', nargs="?", help='Path to the output file')
+    parser.add_argument('output_file', help='Path to the output file')
     parser.add_argument('num_threads', nargs='?', type=int, help='Number of threads', default=100)
     parser.add_argument('--socks-only', help='Check only socks', action="store_true", default=False)
 
     args = parser.parse_args()
-
-    if "vmess://" in args.input_file:
-        converter = VrayConverter()
-        converter.save_local_config_from_string(args.input_file)
-
-        return
-    # args = parser.parse_known_args()
 
     if args.input_file == args.output_file:
         print("Input and output files must be different.")
