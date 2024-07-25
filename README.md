@@ -59,14 +59,3 @@ Install the required packages using:
 ```
 pip install -r requirements.txt
 ```
-
-# Demo:
-### Running the script
-
-### Output file
-
-### Details output file
-
-### CSV Report
-
-
