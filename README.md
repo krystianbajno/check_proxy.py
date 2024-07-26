@@ -15,8 +15,8 @@ A fast Cyber Threat Intelligence tool for creating a list of working proxies. Us
 Contributors:                                                      v2 2024
 @Artideusz (https://github.com/Artideusz)
    
-usage: check_proxy.py [-h] [--socks-only] input_file output_file [num_threads]
-check_proxy.py: error: the following arguments are required: input_file, output_file
+usage: run_check_proxy.py [-h] [--socks-only] input_file output_file [num_threads]
+run_check_proxy.py: error: the following arguments are required: input_file, output_file
 ```
 
 <img src="https://raw.githubusercontent.com/krystianbajno/krystianbajno/main/img/check-proxy/check-proxy.gif"/>
@@ -43,7 +43,7 @@ bash get_proxy.sh
 
 ### To validate the proxies, use the following command:
 ```
-python check_proxy.py <input-file> <output-file> <number-of-threads>
+python run_check_proxy.py <input-file> <output-file> <number-of-threads>
 ```
 
 ### The script generates several reports:
