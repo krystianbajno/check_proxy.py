@@ -1,2 +1,5 @@
 requests 
 requests[socks]
+py7zr
+zipp
+pycryptodome
