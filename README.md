@@ -81,13 +81,15 @@ Convert vmess into JSON config and print to stdout
 python3 parse_vmess_config.py vmess://<base64-encoded-config>
 ```
 
-### run_crypto_proxy_providers
+### run_crypto_proxy_providers.py
 Encrypt/decrypt proxy providers (`proxy-providers.txt`) and dataset stored in ./dataset. Utilizes AES-256 GCM and 7zip compression.
+
+**Encrypt**
 ```bash
 python3 run_crypto_proxy_providers.py e
 ```
 
-Decrypt
+**Decrypt**
 ```bash
 python3 run_crypto_proxy_providers.py d
 ```
