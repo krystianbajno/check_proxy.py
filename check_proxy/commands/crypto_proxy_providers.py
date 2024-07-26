@@ -66,13 +66,20 @@ def process_file(file_path: str, password: str, encrypt: bool):
             if decrypted_path:
                 decompress_file(decrypted_path)
 
+def process_directory(directory_path: str, password: str, encrypt: bool):
+    """Process all files in a directory."""
+    for root, dirs, files in os.walk(directory_path):
+        for file_name in files:
+            file_path = os.path.join(root, file_name)
+            process_file(file_path, password, encrypt)
+            
 def main():
     parser = argparse.ArgumentParser(description="Encrypt or decrypt 'proxy-providers.txt'")
     parser.add_argument("action", choices=['e', 'd'], help="e - encrypt, d - decrypt")
     args = parser.parse_args()
 
     password = getpass.getpass("Enter the password: ")
-    file_paths = ['proxy-providers.txt', 'proxy-custom.txt']
+    file_paths = ['proxy-providers.txt']
     
     for file_path in file_paths:
 
@@ -81,12 +88,18 @@ def main():
                 process_file(file_path, password, encrypt=True)
             else:
                 print(f"File '{file_path}' does not exist.")
+                
+            process_directory("./dataset", password, encrypt=True)
+            
         elif args.action == 'd':
             encrypted_path = file_path + '.arc.enc'
             if os.path.exists(encrypted_path):
                 process_file(encrypted_path, password, encrypt=False)
             else:
                 print(f"Encrypted file '{encrypted_path}' does not exist.")
+                
+            process_directory("./dataset", password, encrypt=False)
+                
 
 if __name__ == "__main__":
     main()

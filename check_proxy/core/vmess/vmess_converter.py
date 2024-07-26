@@ -81,6 +81,27 @@ TPL["CLIENT"] = """
 
 
 class VrayConverter:
+    def get_info_from_vmess(self, vmess_string):
+        if not vmess_string.startswith(vmscheme):
+            raise ValueError("Invalid vmess link")
+
+        base64_str = vmess_string[len(vmscheme):]
+        padding = len(base64_str) % 4
+        if padding > 0:
+            base64_str += "=" * (4 - padding)
+        
+        decoded_str = base64.b64decode(base64_str).decode()
+        vmess_data = json.loads(decoded_str)
+        
+        return {
+            "host": vmess_data.get("host"),
+            "port": vmess_data.get("port"),
+            "net": vmess_data.get("net"),
+            "ip": vmess_data.get("add"),
+            "aid": vmess_data.get("aid"),
+            "tls": vmess_data.get("tls")
+        }
+      
     def convert_vmess_to_json(self, vmess_string):
         if not vmess_string.startswith(vmscheme):
             raise ValueError("Invalid vmess link")

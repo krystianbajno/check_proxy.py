@@ -37,12 +37,12 @@ ip:port
 
 ### To obtain proxies, run the following command in your terminal:
 This command retrieves proxies from the providers listed in the `proxy-providers.txt` file.
-```
+```bash
 bash get_proxy.sh
 ```
 
 ### To validate the proxies, use the following command:
-```
+```bash
 python run_check_proxy.py <input-file> <output-file> <number-of-threads>
 ```
 
@@ -50,6 +50,47 @@ python run_check_proxy.py <input-file> <output-file> <number-of-threads>
 - `output-file`: A plain text file containing the proxies connection strings.
 - `output-file_details`: - An extended report with information on proxy geo-location, integrity, IP, and port.
 - `output-file_details.csv`: A CSV report with detailed information, useful for banning IP ranges or reporting threats to the Blue Team.
+
+# Additional commands
+### run_get_ip_info.py
+Get IP information about the host. Supports vmess connection strings, IP addresses and hostnames.
+```bash
+python3 run_get_ip_info.py vmess://<base64-encoded-config>
+
+python3 run_get_ip_info.py 77.77.77.77
+```
+
+Example output:
+```
+    IP      :: 173.245.58.11
+    Country :: United States
+    Region  :: California
+    City    :: San Francisco
+    Zip     :: None
+    ISP     :: Cloudflare, Inc.
+    Org     :: Cloudflare, Inc.
+    Time    :: None
+    AS      :: AS13335 Cloudflare, Inc.
+    Lat     :: 37.7803
+    Lon     ;; -122.39
+```
+
+### parse_vmess_config.py
+Convert vmess into JSON config and print to stdout
+```bash
+python3 parse_vmess_config.py vmess://<base64-encoded-config>
+```
+
+### run_crypto_proxy_providers
+Encrypt/decrypt proxy providers (`proxy-providers.txt`) and dataset stored in ./dataset. Utilizes AES-256 GCM and 7zip compression.
+```bash
+python3 run_crypto_proxy_providers.py e
+```
+
+Decrypt
+```bash
+python3 run_crypto_proxy_providers.py d
+```
 
 # Installation:
 Install the required packages using:
