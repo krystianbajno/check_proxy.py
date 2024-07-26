@@ -33,6 +33,14 @@ def main():
     
     classified_proxies = classify_proxies_by_type(proxies)
     
+    if not args.socks_only:
+        installer = VmessInstallService(configuration()["vmess_dist_dir"])
+    
+        if get_len_of_proxy_class(classified_proxies, ClassifierEnum.VMESS) > 0 and not installer.check_exists():
+            choice = input("Do you want to install utility tools for V2Ray VMESS proxy?")
+            if "y" in choice.lower():
+                installer.install()
+            
     print(f"Input file: {args.input_file}")
     print(f"Output file: {args.output_file}")
     print(f"Number of threads: {args.num_threads}")
@@ -40,13 +48,6 @@ def main():
     print(f"Parsed VMESS: {get_len_of_proxy_class(classified_proxies, ClassifierEnum.VMESS)}")
     input(f"[*] Press enter to start!\n")
     
-    installer = VmessInstallService(configuration()["vmess_dist_dir"])
-    
-    if get_len_of_proxy_class(classified_proxies, ClassifierEnum.VMESS) > 0 and not installer.check_exists():
-        choice = input("Do you want to install utility tools for V2Ray VMESS proxy?")
-        if "y" in choice.lower():
-            installer.install()
-
     counter = create_counter()
     csv_report = CSVProxyReport.create_report()
 
