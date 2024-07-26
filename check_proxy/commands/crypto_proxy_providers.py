@@ -72,19 +72,21 @@ def main():
     args = parser.parse_args()
 
     password = getpass.getpass("Enter the password: ")
-    file_path = 'proxy-providers.txt'
+    file_paths = ['proxy-providers.txt', 'proxy-custom.txt']
+    
+    for file_path in file_paths:
 
-    if args.action == 'e':
-        if os.path.exists(file_path):
-            process_file(file_path, password, encrypt=True)
-        else:
-            print(f"File '{file_path}' does not exist.")
-    elif args.action == 'd':
-        encrypted_path = file_path + '.arc.enc'
-        if os.path.exists(encrypted_path):
-            process_file(encrypted_path, password, encrypt=False)
-        else:
-            print(f"Encrypted file '{encrypted_path}' does not exist.")
+        if args.action == 'e':
+            if os.path.exists(file_path):
+                process_file(file_path, password, encrypt=True)
+            else:
+                print(f"File '{file_path}' does not exist.")
+        elif args.action == 'd':
+            encrypted_path = file_path + '.arc.enc'
+            if os.path.exists(encrypted_path):
+                process_file(encrypted_path, password, encrypt=False)
+            else:
+                print(f"Encrypted file '{encrypted_path}' does not exist.")
 
 if __name__ == "__main__":
     main()
