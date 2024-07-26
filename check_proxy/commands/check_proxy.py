@@ -5,6 +5,7 @@ from check_proxy.config import configuration
 from check_proxy.core.banner import display_banner
 from check_proxy.core.classifiers.classifier_enum import ClassifierEnum
 from check_proxy.core.classifiers.proxy_classifier import classify_proxies_by_type, get_len_classified_proxies_total, get_len_of_proxy_class, get_proxies_by_class
+from check_proxy.core.cleaner.proxy_cleaner import clean_proxies
 from check_proxy.core.counter import create_counter, set_total
 from check_proxy.core.file_ops import read_proxies
 from check_proxy.core.handlers.cli.hoc.socks_handler_cli_hoc import handle as handle_socks_cli
@@ -28,6 +29,8 @@ def main():
         sys.exit(1)
 
     proxies = read_proxies(args.input_file)
+    proxies = clean_proxies(proxies)
+    
     classified_proxies = classify_proxies_by_type(proxies)
     
     print(f"Input file: {args.input_file}")
