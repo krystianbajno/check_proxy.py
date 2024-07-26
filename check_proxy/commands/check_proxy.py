@@ -1,7 +1,7 @@
 import argparse
 import sys
 
-from config import configuration
+from check_proxy.config import configuration
 from check_proxy.core.banner import display_banner
 from check_proxy.core.classifiers.classifier_enum import ClassifierEnum
 from check_proxy.core.classifiers.proxy_classifier import classify_proxies_by_type, get_len_classified_proxies_total, get_len_of_proxy_class, get_proxies_by_class

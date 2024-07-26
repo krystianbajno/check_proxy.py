@@ -1,4 +1,4 @@
-from config import configuration
+from check_proxy.config import configuration
 from check_proxy.core.classifiers.classifier_enum import ClassifierEnum
 from check_proxy.core.entities.proxy import Proxy
 from check_proxy.core.events import on_check, on_proxy_found
