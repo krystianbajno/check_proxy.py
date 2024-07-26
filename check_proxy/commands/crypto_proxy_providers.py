@@ -14,13 +14,15 @@ def compress_file(file_path: str) -> str:
     with py7zr.SevenZipFile(compressed_path, 'w') as archive:
         archive.write(file_path, os.path.basename(file_path))
     os.remove(file_path)
+    
     return compressed_path
 
 def decompress_file(file_path: str) -> str:
-    decompressed_path = file_path[:-4]  # Remove '.arc' extension
+    decompressed_path = file_path[:-4]
     with py7zr.SevenZipFile(file_path, 'r') as archive:
         archive.extractall(path=os.path.dirname(decompressed_path))
     os.remove(file_path)
+    
     return decompressed_path
 
 def encrypt_file(file_path: str, password: str) -> str:
@@ -28,17 +30,20 @@ def encrypt_file(file_path: str, password: str) -> str:
     key = derive_key(password, salt)
     aesgcm = AESGCM(key)
     encrypted_path = file_path + '.enc'
+    
     try:
         with open(file_path, 'rb') as f, open(encrypted_path, 'wb') as out:
             out.write(salt + nonce + aesgcm.encrypt(nonce, f.read(), None))
         os.remove(file_path)
         return encrypted_path
+    
     except Exception as e:
         print(f"Error encrypting file {file_path}: {e}")
         return None
 
 def decrypt_file(file_path: str, password: str) -> str:
-    decrypted_path = file_path[:-4]  # Remove '.enc' extension
+    decrypted_path = file_path[:-4]
+    
     try:
         with open(file_path, 'rb') as f:
             salt, nonce, enc_data = f.read(16), f.read(12), f.read()
@@ -48,10 +53,13 @@ def decrypt_file(file_path: str, password: str) -> str:
             out.write(aesgcm.decrypt(nonce, enc_data, None))
         os.remove(file_path)
         return decrypted_path
+    
     except InvalidTag:
         print(f"Error: Invalid password or corrupted file: {file_path}")
+        
     except Exception as e:
         print(f"Error decrypting file {file_path}: {e}")
+        
     return None
 
 def process_file(file_path: str, password: str, encrypt: bool):
@@ -67,11 +75,11 @@ def process_file(file_path: str, password: str, encrypt: bool):
                 decompress_file(decrypted_path)
 
 def process_directory(directory_path: str, password: str, encrypt: bool):
-    """Process all files in a directory."""
     for root, dirs, files in os.walk(directory_path):
         for file_name in files:
             file_path = os.path.join(root, file_name)
             process_file(file_path, password, encrypt)
+           
             
 def main():
     parser = argparse.ArgumentParser(description="Encrypt or decrypt 'proxy-providers.txt'")
@@ -99,7 +107,3 @@ def main():
                 print(f"Encrypted file '{encrypted_path}' does not exist.")
                 
             process_directory("./dataset", password, encrypt=False)
-                
-
-if __name__ == "__main__":
-    main()

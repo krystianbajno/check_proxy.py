@@ -1,6 +1,5 @@
 from check_proxy.core.classifiers.classifier_enum import ClassifierEnum
 
-
 classifier_config = [
     {
         "class": ClassifierEnum.VMESS,

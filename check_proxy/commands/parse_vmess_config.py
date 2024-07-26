@@ -14,6 +14,3 @@ def main():
         print(json)
     except:
         print("VMESS connection string is not valid")
-        
-if __name__ == "__main__":
-    pass

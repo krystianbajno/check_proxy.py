@@ -13,7 +13,6 @@ from check_proxy.core.handlers.cli.hoc.vmess_handler_cli_hoc import handle as ha
 from check_proxy.core.reports.entities.csv_proxy_report import CSVProxyReport
 from check_proxy.core.vmess.vmess_install_service import VmessInstallService
 
-
 def main():
     display_banner()
     parser = argparse.ArgumentParser(description='Check proxies from a list.')
