@@ -23,6 +23,7 @@ def main():
     parser.add_argument('--socks-only', help='Check only socks', action="store_true", default=False)
 
     args = parser.parse_args()
+    socks_only = args.socks_only
 
     if args.input_file == args.output_file:
         print("Input and output files must be different.")
@@ -33,16 +34,18 @@ def main():
     
     classified_proxies = classify_proxies_by_type(proxies)
     
-    if not args.socks_only:
+    if not socks_only:
         installer = VmessInstallService(configuration()["vmess_dist_dir"])
 
         if get_len_of_proxy_class(classified_proxies, ClassifierEnum.VMESS) > 0 and not installer.check_exists():
             print(f"{Colors.RED}[!] You provided VMESS proxy, but the utility tools are not installed.")
+            socks_only = True
             choice = ""
             while choice.lower() not in ["n", "y"]:
                 choice = input(f"{Colors.GREEN} Do you want to install utility tools for V2Ray VMESS proxy? Y/n: {Colors.RESET}" )
                 if "y" in choice.lower():
                     installer.install()
+                    socks_only = False
             
     print(f"Input file: {args.input_file}")
     print(f"Output file: {args.output_file}")
@@ -56,7 +59,7 @@ def main():
 
     set_total(counter, get_len_classified_proxies_total(classified_proxies))
     
-    if not args.socks_only:
+    if not socks_only:
         handle_vmess_cli(
             csv_report,
             counter,
