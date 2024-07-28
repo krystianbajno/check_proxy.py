@@ -5,3 +5,4 @@ class Colors:
     CYAN = '\033[0;36m'
     VIOLET = '\033[38;5;105m'
     BOLD = '\033[1m'
+    RED = '\033[31m'

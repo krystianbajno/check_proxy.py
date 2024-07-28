@@ -43,6 +43,11 @@ class VmessInstallService:
         # Unzip the release
         with zipfile.ZipFile(zip_file_path) as zip_fh:
             zip_fh.extractall(self.directory)
+        
+        if os_type is not "windows-64":
+            v2ray_path = os.path.join(self.directory, "v2ray")
+            os.chmod(v2ray_path, 755)
+
 
 if __name__ == "__main__":
     installer = VmessInstallService()

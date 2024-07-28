@@ -81,7 +81,8 @@ TPL["CLIENT"] = """
 
 
 class VrayConverter:
-    def get_info_from_vmess(self, vmess_string):
+    @staticmethod
+    def get_info_from_vmess(vmess_string):
         if not vmess_string.startswith(vmscheme):
             raise ValueError("Invalid vmess link")
 
@@ -101,8 +102,9 @@ class VrayConverter:
             "aid": vmess_data.get("aid"),
             "tls": vmess_data.get("tls")
         }
-      
-    def convert_vmess_to_json(self, vmess_string):
+        
+    @staticmethod
+    def convert_vmess_to_dict(vmess_string):
         if not vmess_string.startswith(vmscheme):
             raise ValueError("Invalid vmess link")
 
@@ -130,11 +132,17 @@ class VrayConverter:
             outbound["streamSettings"]["tlsSettings"] = {"allowInsecure": True}
             if vmess_data.get("host"):
                 outbound["streamSettings"]["tlsSettings"]["serverName"] = vmess_data["host"]
+                
+        return config
         
+    @staticmethod
+    def convert_vmess_to_json(vmess_string):
+        config = VrayConverter.convert_vmess_to_dict(vmess_string)
         return json.dumps(config)
 
-    def save_local_config_from_string(self, vmess_string, config_path="./core/vmess/tools/config.json"):
-        config = self.convert_vmess_to_json(vmess_string)
+    @staticmethod
+    def save_local_config_from_string(vmess_string, config_path):
+        config = VrayConverter.convert_vmess_to_json(vmess_string)
 
         os.makedirs(os.path.dirname(config_path), exist_ok=True)
 

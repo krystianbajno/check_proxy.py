@@ -15,6 +15,18 @@ class IpApiResponse:
         self.org = None
         self.f_as = None
 
+    def set_retrievable_fields(self, value):
+        self.set_org(value)
+        self.set_longitude(value)
+        self.set_latitude(value)
+        self.set_isp(value)
+        self.set_country(value)
+        self.set_country_code(value)
+        self.set_city(value)
+        self.set_as(value)
+        self.set_region(value)
+        self.set_region_name(value)
+        
     def set_country(self, country):
         self.country = country
 

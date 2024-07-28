@@ -13,8 +13,7 @@ def main():
     ip = args.ip
     
     if classify_proxy(ip) == ClassifierEnum.VMESS:
-        converter = VrayConverter()
-        data = converter.get_info_from_vmess(args.ip)
+        data = VrayConverter.get_info_from_vmess(args.ip)
         ip = data["ip"]
 
     try:

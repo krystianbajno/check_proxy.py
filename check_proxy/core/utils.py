@@ -3,4 +3,8 @@ def partition(lst, n):
 
 def check_proxies(proxy_list, proxy_checker):
     for line in proxy_list:
-        proxy_checker(line)
+        try:
+            proxy_checker(line)
+        except Exception as e:
+            print(e)
+            pass

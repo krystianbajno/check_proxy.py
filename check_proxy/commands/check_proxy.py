@@ -6,6 +6,7 @@ from check_proxy.core.banner import display_banner
 from check_proxy.core.classifiers.classifier_enum import ClassifierEnum
 from check_proxy.core.classifiers.proxy_classifier import classify_proxies_by_type, get_len_classified_proxies_total, get_len_of_proxy_class, get_proxies_by_class
 from check_proxy.core.cleaner.proxy_cleaner import clean_proxies
+from check_proxy.core.colors import Colors
 from check_proxy.core.counter import create_counter, set_total
 from check_proxy.core.file_ops import read_proxies
 from check_proxy.core.handlers.cli.hoc.socks_handler_cli_hoc import handle as handle_socks_cli
@@ -34,11 +35,14 @@ def main():
     
     if not args.socks_only:
         installer = VmessInstallService(configuration()["vmess_dist_dir"])
-    
+
         if get_len_of_proxy_class(classified_proxies, ClassifierEnum.VMESS) > 0 and not installer.check_exists():
-            choice = input("Do you want to install utility tools for V2Ray VMESS proxy?")
-            if "y" in choice.lower():
-                installer.install()
+            print(f"{Colors.RED}[!] You provided VMESS proxy, but the utility tools are not installed.")
+            choice = ""
+            while choice.lower() not in ["n", "y"]:
+                choice = input(f"{Colors.GREEN} Do you want to install utility tools for V2Ray VMESS proxy? Y/n: {Colors.RESET}" )
+                if "y" in choice.lower():
+                    installer.install()
             
     print(f"Input file: {args.input_file}")
     print(f"Output file: {args.output_file}")

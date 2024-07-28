@@ -30,4 +30,4 @@ def get_working(counter):
     return counter['working']
 
 def print_progress(counter, line):
-    print(f"{Colors.GREEN}{get_working(counter)} WORKING{Colors.RESET} - {get_progress(counter)}/{get_total(counter)} - trying {Colors.CYAN}{line}{Colors.RESET}")
+    print(f"{Colors.GREEN}{get_working(counter)} WORKING{Colors.RESET} - {get_progress(counter)}/{get_total(counter)} - trying {Colors.CYAN}{line[:64]}{Colors.RESET}")

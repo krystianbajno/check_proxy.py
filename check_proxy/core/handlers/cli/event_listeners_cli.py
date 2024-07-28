@@ -11,7 +11,7 @@ from check_proxy.core.reports.entities.csv_proxy_report import CSVProxyReport
 
 def on_cli_proxy_found_decorator(output_file, counter, csv_report: CSVProxyReport):
     def decorated_func(proxy: Proxy, output_list):
-        print(f"[{Colors.GREEN}+{Colors.RESET}] {Colors.YELLOW}{proxy.connection_string}{Colors.RESET} is a {Colors.GREEN}valid{Colors.RESET} proxy! Saving.")
+        print(f"[{Colors.GREEN}+{Colors.RESET}] {Colors.YELLOW}{proxy.connection_string[:64]}{Colors.RESET} is a {Colors.GREEN}valid{Colors.RESET} proxy! Saving.")
 
         # Update counter
         ctr_add_working(counter)
@@ -51,3 +51,4 @@ def on_cli_proxy_check_decorator(counter):
             return on_check(proxy)
         
         return decorated_func
+    

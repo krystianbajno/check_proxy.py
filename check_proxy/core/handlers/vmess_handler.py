@@ -9,6 +9,7 @@ def handle(vmess_proxies, output_list, on_proxy_found=on_proxy_found, on_check=o
     proxies = list([Proxy(proxy, ClassifierEnum.VMESS) for proxy in vmess_proxies])
 
     vmess_checker = VmessProxyChecker(
+        configuration()["vmess_dist"],
         configuration()["vmess_dist_dir"],
         on_proxy_found=lambda proxy: on_proxy_found(proxy, output_list), 
         on_check=lambda proxy: on_check(proxy)
