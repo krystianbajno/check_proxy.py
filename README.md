@@ -1,5 +1,5 @@
 # check_proxy.py
-A fast Cyber Threat Intelligence tool for creating a list of working proxies. Use it to obtain, validate, and check proxy origins. Easily create IoC proxy lists. Supports vmess, HTTPS, and SOCKS.
+A fast Cyber Threat Intelligence suite for creating a list of working proxies, that obtains, validates, and checks proxy origins. Easily creates IoC proxy lists. Supports vmess, HTTPS, and SOCKS.
 
 ```
        _               _                                                
