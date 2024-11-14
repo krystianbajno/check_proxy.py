@@ -82,6 +82,7 @@ Example output:
 
 ### parse_vmess_config.py
 Convert vmess into JSON config and print to stdout
+
 ```bash
 python3 parse_vmess_config.py vmess://<base64-encoded-config>
 ```
