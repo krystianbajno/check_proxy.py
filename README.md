@@ -1,4 +1,5 @@
 # check_proxy.py
+[![CodeFactor](https://www.codefactor.io/repository/github/krystianbajno/check_proxy.py/badge)](https://www.codefactor.io/repository/github/krystianbajno/check_proxy.py)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e68d317481b34bfd9ad1bb8b15d1ed87)](https://app.codacy.com/gh/krystianbajno/check_proxy.py?utm_source=github.com&utm_medium=referral&utm_content=krystianbajno/check_proxy.py&utm_campaign=Badge_Grade)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkrystianbajno%2Fcheck_proxy.py.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkrystianbajno%2Fcheck_proxy.py?ref=badge_shield)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkrystianbajno%2Fcheck_proxy.py.svg?type=shield&issueType=security)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkrystianbajno%2Fcheck_proxy.py?ref=badge_shield&issueType=security)
