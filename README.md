@@ -1,4 +1,6 @@
 # check_proxy.py
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkrystianbajno%2Fcheck_proxy.py.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkrystianbajno%2Fcheck_proxy.py?ref=badge_shield)
+
 A fast Cyber Threat Intelligence suite for creating a list of working proxies, that obtains, validates, and checks proxy origins. Easily creates IoC proxy lists. Supports vmess, HTTPS, and SOCKS.
 
 ```
@@ -100,3 +102,7 @@ Install the required packages using:
 ```
 pip install -r requirements.txt
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkrystianbajno%2Fcheck_proxy.py.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkrystianbajno%2Fcheck_proxy.py?ref=badge_large)
